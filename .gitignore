@@ -1,0 +1,11 @@
+venv
+
+*.egg-info
+
+*.pytest_cache
+
+__pycache__
+
+reports
+
+.DS_Store
