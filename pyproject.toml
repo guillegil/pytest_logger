@@ -1,24 +1,24 @@
 [project]
 authors = [{ name = "Guillermo Gil", email = "guillegil@proton.me" }]
 dependencies = ["pytest>=7"]
-description = "My Pytest Plugin"
+description = "Pytest Logger"
 version = "0.1.0"
 license = "MIT"
-name = "my-pytest-plugin-name"
+name = "pytest-logger"
 readme = "README.md"
 requires-python = ">=3.9"
-urls = { homepage = "https://mypluginurl.com", repository = "https://github.com/guillegil/pytest-plugin-template" }
+urls = { homepage = "https://mypluginurl.com", repository = "https://github.com/guillegil/pytest-logger" }
 
 [build-system]
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.entry-points."pytest11"]
-report = "pytest_plugin.plugin"
+report = "pytest_logger.plugin"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["pytest_plugin*"]
+include = ["pytest_logger*"]
 
 [tool.pytest.ini_options]
 filterwarnings = ["ignore::pytest.PytestUnknownMarkWarning"]
