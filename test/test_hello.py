@@ -1,6 +1,9 @@
 
 import pytest
+from pytest_meta import meta
 from pytest_logger import log
+
+
 
 @pytest.fixture
 def setup():
@@ -11,3 +14,5 @@ def setup():
 def test_hello(setup):
     log.info("✋ Hello from a test!")
     log.warning("⚠️  Warning from a test!")
+
+    log.info(f"{meta.stage=}")

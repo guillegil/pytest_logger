@@ -1,3 +1,7 @@
+
+
+
+
 import pytest
 from pytest import Item, CallInfo, TestReport, Config, Session, OptionGroup
 from _pytest.fixtures import FixtureDef
@@ -8,10 +12,10 @@ from _pytest.config.argparsing import Parser
 from pathlib import Path
 from typing import Any, List, Optional, Union
 import warnings
+pytest_plugins = ["pytest_meta"]
 
 from .logger.logger import log, levels
-
-from pytest_meta import meta
+from pytest_meta.metainfo import meta
 
 
 def __map_correct_level(level_name: str) -> int:
@@ -138,7 +142,7 @@ def pytest_runtest_logfinish(nodeid: str, location: tuple) -> None:
     """Called at the end of running the runtest protocol."""
     pass
 
-@pytest.hookimpl(trylast=False)
+@pytest.hookimpl(trylast=True)
 def pytest_runtest_setup(item: Item) -> None:
     """Called to execute the test item setup."""
     print(meta.testcase)
@@ -155,12 +159,16 @@ def pytest_runtest_call(item: Item) -> None:
 @pytest.hookimpl
 def pytest_runtest_teardown(item: Item, nextitem: Optional[Item]) -> None:
     """Called to execute the test item teardown."""
-    pass
+    print(meta.testcase)
+    print(meta.stage)
+    print(meta)
 
 @pytest.hookimpl
 def pytest_runtest_makereport(item: Item, call: CallInfo) -> Optional[TestReport]:
     """Create test report for the given item and call."""
-    return None 
+    print(meta.testcase)
+    print(meta.stage)
+    print(meta)
 
 # ========== FIXTURE HOOKS ==========
 
@@ -172,7 +180,9 @@ def pytest_fixture_setup(fixturedef: FixtureDef, request) -> None:
 @pytest.hookimpl
 def pytest_fixture_post_finalizer(fixturedef: FixtureDef, request) -> None:
     """Called after fixture finalizer."""
-    pass
+    print(meta.testcase)
+    print(meta.stage)
+    print(meta)
 
 # ========== REPORTING HOOKS ==========
 
@@ -189,7 +199,9 @@ def pytest_report_collectionfinish(config: Config, start_path: Path, items: List
 @pytest.hookimpl
 def pytest_report_teststatus(report: TestReport, config: Config) -> Optional[tuple]:
     """Return result-category, shortletter and verbose word."""
-pass
+    print(meta.testcase)
+    print(meta.stage)
+    print(meta)
 
 @pytest.hookimpl
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: int, config: Config) -> None:
